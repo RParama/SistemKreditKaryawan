@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author gandol
+ * @author SAMSUNG
  */
 @Entity
 @Table(name = "STATUSLOAN")

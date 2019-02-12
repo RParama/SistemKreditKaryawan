@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author gandol
+ * @author SAMSUNG
  */
 @Entity
 @Table(name = "LOAN")
@@ -32,7 +32,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Loan.findAll", query = "SELECT l FROM Loan l")
     , @NamedQuery(name = "Loan.findById", query = "SELECT l FROM Loan l WHERE l.id = :id")
-    , @NamedQuery(name = "Loan.findByAdmin", query = "SELECT l FROM Loan l WHERE l.admin = :admin")
     , @NamedQuery(name = "Loan.findByNominal", query = "SELECT l FROM Loan l WHERE l.nominal = :nominal")
     , @NamedQuery(name = "Loan.findByLoanDuration", query = "SELECT l FROM Loan l WHERE l.loanDuration = :loanDuration")
     , @NamedQuery(name = "Loan.findByMonthlyPayment", query = "SELECT l FROM Loan l WHERE l.monthlyPayment = :monthlyPayment")
@@ -44,8 +43,6 @@ public class Loan implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private String id;
-    @Column(name = "ADMIN")
-    private String admin;
     @Basic(optional = false)
     @Column(name = "NOMINAL")
     private long nominal;
@@ -55,11 +52,15 @@ public class Loan implements Serializable {
     @Basic(optional = false)
     @Column(name = "MONTHLY_PAYMENT")
     private long monthlyPayment;
+    @Basic(optional = false)
     @Column(name = "STATUS")
     private String status;
     @JoinColumn(name = "NIK", referencedColumnName = "NIK")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Employee nik;
+    @JoinColumn(name = "ADMIN", referencedColumnName = "NIK")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Employee admin;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idLoan", fetch = FetchType.LAZY)
     private List<Statusloan> statusloanList;
 
@@ -70,11 +71,12 @@ public class Loan implements Serializable {
         this.id = id;
     }
 
-    public Loan(String id, long nominal, int loanDuration, long monthlyPayment) {
+    public Loan(String id, long nominal, int loanDuration, long monthlyPayment, String status) {
         this.id = id;
         this.nominal = nominal;
         this.loanDuration = loanDuration;
         this.monthlyPayment = monthlyPayment;
+        this.status = status;
     }
 
     public String getId() {
@@ -83,14 +85,6 @@ public class Loan implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(String admin) {
-        this.admin = admin;
     }
 
     public long getNominal() {
@@ -131,6 +125,14 @@ public class Loan implements Serializable {
 
     public void setNik(Employee nik) {
         this.nik = nik;
+    }
+
+    public Employee getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Employee admin) {
+        this.admin = admin;
     }
 
     @XmlTransient

@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author gandol
+ * @author SAMSUNG
  */
 @Entity
 @Table(name = "EMPLOYEE")
@@ -65,6 +65,8 @@ public class Employee implements Serializable {
     private String isDelete;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nik", fetch = FetchType.LAZY)
     private List<Loan> loanList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "admin", fetch = FetchType.LAZY)
+    private List<Loan> loanList1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nik", fetch = FetchType.LAZY)
     private List<Roleemployee> roleemployeeList;
 
@@ -75,24 +77,11 @@ public class Employee implements Serializable {
         this.nik = nik;
     }
 
-//    public Employee(String nik, String email, String password) {
-//        this.nik = nik;
-//        this.email = email;
-//        this.password = password;
-//    }
-
-    public Employee(String nik, String name, String phoneNumber, String email, String username, String password, Long salary, String status, String isDelete) {
+    public Employee(String nik, String email, String password) {
         this.nik = nik;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
         this.email = email;
-        this.username = username;
         this.password = password;
-        this.salary = salary;
-        this.status = status;
-        this.isDelete = isDelete;
     }
-    
 
     public String getNik() {
         return nik;
@@ -173,6 +162,15 @@ public class Employee implements Serializable {
 
     public void setLoanList(List<Loan> loanList) {
         this.loanList = loanList;
+    }
+
+    @XmlTransient
+    public List<Loan> getLoanList1() {
+        return loanList1;
+    }
+
+    public void setLoanList1(List<Loan> loanList1) {
+        this.loanList1 = loanList1;
     }
 
     @XmlTransient

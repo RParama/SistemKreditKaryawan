@@ -4,6 +4,8 @@
     Author     : gandol
 --%>
 
+<%@page import="models.Loan"%>
+<%@page import="daos.DAO"%>
 <%@page import="daos.FunctionDAO"%>
 <%@page import="tools.NewHibernateUtil"%>
 <%@page import="org.hibernate.SessionFactory"%>
@@ -12,13 +14,14 @@
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+    SessionFactory sessionFactory = NewHibernateUtil.getSessionFactory();
     FunctionDAO fdao = new FunctionDAO();
 %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Beranda</title>
+        <title>Pinjaman</title>
         <link rel="stylesheet" type="text/css" href="../style/table.css">
         <link rel="stylesheet" type="text/css" href="../style/reset.css" />
         <link rel="stylesheet" type="text/css" href="../style/style.css" />
@@ -32,8 +35,8 @@
                 <h2></h2>
                 <!--<h2>Nyekrip <span>-</span> Web Tutorial Indonesia</h2> -->
                 <nav>
-                    <a href="#">Karyawan</a>
-                    <a href="Pinjaman.jsp">Pinjaman</a>
+                    <a href="Beranda.jsp">Karyawan</a>
+                    <a href="#">Pinjaman</a>
                     <a href="#">Angsuran</a>
                     <div class="clearfix"></div>
                 </nav>	
@@ -41,72 +44,79 @@
 
             <div id="latest">
                 <selection class="center-col">
+                    <p>Pinjaman</p><br>    
                     <table>
 <!--                        <thead>-->
                             <tr>
                                 <th>No</th>
                                 <th>NIK</th>
                                 <th>Nama</th>
-                                <th>Telepon</th>
-                                <th>Email</th>
-                                <th>Gaji</th>
-                                <th>Status</th>
+                                <th>Admin</th>
+                                <th>Nominal</th>
+                                <th>Angsuran</th>
+                                <th>Tenor</th>
+                                <th>Status Pinjaman</th>
                             </tr>
 <!--                        </thead>-->
                         <%
                             int nn = 1;
-                            for (Employee e : fdao.function(new Employee(), 3, "", "")) {
+//                            for (Loan e : fdao.function(new Loan(), 3, "", ""))) {
+                            for (Loan e : fdao.function(new Loan(), 3, "", "")) {
+                                    
                         %>      
 <!--                        <tbody>-->
                             <tr>
                                 <td><%=nn++%></td>
                                 <% if (e.getNik() != null) {
-                                        out.print("<td>" + e.getNik());
+                                        out.print("<td>" + e.getNik().getNik());
                                     } else {
                                         out.print("<td>0");
                                     }
                                 %>
                                 </td>
-                                <% if (e.getName() != null) {
-                                        out.print("<td>" + e.getName());
+                                <% if (e.getNik() != null) {
+                                        out.print("<td>" + e.getNik().getName());
                                     } else {
                                         out.print("<td>0");
                                     }
                                 %>
                                 </td>
-                                <% if (e.getPhoneNumber() != null) {
-                                        out.print("<td>" + e.getPhoneNumber());
+                                <% if (e.getAdmin() != null) {
+                                        out.print("<td>" + e.getAdmin().getName());
                                     } else {
                                         out.print("<td>0");
                                     }
                                 %>
                                 </td>
-                                <% if (e.getEmail() != null) {
-                                        out.print("<td>" + e.getEmail());
+                                <% if (e.getNominal() != 0) {
+                                        out.print("<td>" + e.getNominal());
                                     } else {
-                                        out.print("<td>-");
+                                        out.print("<td>0");
                                     }
                                 %>
                                 </td>
-                                <% if (e.getSalary() != null) {
-                                        out.print("<td>" + e.getSalary());
+                                <% if (e.getMonthlyPayment()!= 0) {
+                                        out.print("<td>" + e.getMonthlyPayment());
                                     } else {
-                                        out.print("<td>-");
+                                        out.print("<td>0");
+                                    }
+                                %>
+                                </td>
+                                <% if (e.getLoanDuration()!= 0) {
+                                        out.print("<td>" + e.getLoanDuration());
+                                    } else {
+                                        out.print("<td>0");
                                     }
                                 %>
                                 </td>
                                 <% if (e.getStatus() != null) {
-                                        if (e.getStatus().equals("1")) {
-                                            out.print("<td>Tetap");
-                                        } else {
-                                            out.print("<td>Kontrak");
-                                        }
+                                        out.print("<td>" + e.getStatus());
                                     } else {
                                         out.print("<td>-");
                                     }
                                 %>
                                 </td>
-
+                                
                                 <td><a style="color: #6666ff" href="../Update?id=<%= e.getNik()%>">Edit</a></td>
                                 <td><a style="color: #6666ff" href="BerandaDetail.jsp">Detail</a></td>
 <!--                                <td><a href="../Delete?id=">Hapus</a></td>-->

@@ -5,24 +5,18 @@
  */
 package controllers;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
- * @author SAMSUNG
- * @param <E>
+ * @author gandol
  */
 public interface ControllerInterface<E> {
-
     public boolean saveOrEdit(E e);
-
     public boolean delete(E e);
-
     public List<E> getAll(E e);
-
     public E findById(E e, String id);
-
-    public E getMaxId(E e);
-
+    public E getMaxId(E e);    
     public List<E> search(E e, String category, String id);
 }

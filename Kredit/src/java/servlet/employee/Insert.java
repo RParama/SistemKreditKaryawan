@@ -39,20 +39,20 @@ public class Insert extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String nik = request.getParameter("nik");
         String name = request.getParameter("nama");
         String hp = request.getParameter("hp");
-        String email = "";
-        String user = "";
-        String pass = "";
-        Long salary = null;
-        String status  = "";
-        String isdel   = "";        
-        
+        String email = request.getParameter("mail");
+        String user = request.getParameter("usr");
+        String pass = request.getParameter("pass");
+        Long salary = Long.parseLong(request.getParameter("gaji"));
+        String status = request.getParameter("sts");
+        String isdel = request.getParameter("isDel");
+
         HttpSession session = request.getSession();
         RequestDispatcher dispatcher = null;
-        
+
         try (PrintWriter out = response.getWriter()) {
             SessionFactory sessionFactory = NewHibernateUtil.getSessionFactory();
             ControllerInterface<Employee> ci = new GeneralController(sessionFactory);

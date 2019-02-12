@@ -58,7 +58,7 @@ public final class Beranda_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
 
     FunctionDAO fdao = new FunctionDAO();
-    String nik = "", name = "", hp = "", email = "";
+    String nik = "", name = "", hp = "";
 
       out.write("\n");
       out.write("<!DOCTYPE html>\n");
@@ -99,16 +99,17 @@ public final class Beranda_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("            <div id=\"latest\">\n");
       out.write("                <selection class=\"center-col\">\n");
+      out.write("                    ----------------------------------------------\n");
       out.write("                    <table border=\"1\">\n");
       out.write("                        <thead>\n");
       out.write("                            <tr>\n");
-      out.write("                                <th style=\"text-align: center\">No</th>\n");
-      out.write("                                <th style=\"text-align: center\">NIK</th>\n");
-      out.write("                                <th style=\"text-align: center\">Nama</th>\n");
-      out.write("                                <th style=\"text-align: center\">Telepon</th>\n");
-      out.write("                                <th style=\"text-align: center\">Email</th>\n");
-      out.write("                                <th style=\"text-align: center\">Gaji</th>\n");
-      out.write("                                <th style=\"text-align: center\">Status</th>\n");
+      out.write("                                <th>No</th>\n");
+      out.write("                                <th>NIK</th>\n");
+      out.write("                                <th>Nama</th>\n");
+      out.write("                                <th>Telepon</th>\n");
+      out.write("                                <th>Email</th>\n");
+      out.write("                                <th>Gaji</th>\n");
+      out.write("                                <th>Status</th>\n");
       out.write("                            </tr>\n");
       out.write("                        </thead>\n");
       out.write("                        ");
@@ -202,7 +203,7 @@ public final class Beranda_jsp extends org.apache.jasper.runtime.HttpJspBase
                     
       out.write("\n");
       out.write("                </selection>\n");
-      out.write("                <form action=\"../Insert\" method=\"post\">\n");
+      out.write("<!--                <form action=\"../Insert\" method=\"post\">\n");
       out.write("                    <table>\n");
       out.write("                        <tr>\n");
       out.write("                            <td>NIK</td>\n");
@@ -226,18 +227,11 @@ public final class Beranda_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\"></td>\n");
       out.write("                        </tr>\n");
       out.write("                        <tr>\n");
-      out.write("                            <td>Email</td>\n");
-      out.write("                            <td>:</td>\n");
-      out.write("                            <td><input type=\"text\" name=\"hp\" value=\"");
-      out.print( email);
-      out.write("\"></td>\n");
-      out.write("                        </tr>\n");
-      out.write("                        <tr>\n");
       out.write("                            <td><input type=\"submit\" value=\"Simpan\"></td>\n");
       out.write("                            <td><input type=\"reset\" value=\"Reset\"></td>\n");
       out.write("                        </tr>\n");
       out.write("                    </table>\n");
-      out.write("                </form>\n");
+      out.write("                </form>-->\n");
       out.write("            </div>\n");
       out.write("        </div>\n");
       out.write("    </body>\n");

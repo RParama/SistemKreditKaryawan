@@ -13,13 +13,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     FunctionDAO fdao = new FunctionDAO();
-    String nik = "", name = "", hp = "", email = "", gaji = "";
 %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Beranda</title>
         <link rel="stylesheet" type="text/css" href="../style/table.css">
         <link rel="stylesheet" type="text/css" href="../style/reset.css" />
         <link rel="stylesheet" type="text/css" href="../style/style.css" />
@@ -34,40 +33,31 @@
                 <!--<h2>Nyekrip <span>-</span> Web Tutorial Indonesia</h2> -->
                 <nav>
                     <a href="#">Karyawan</a>
+                    <a href="Pinjaman.jsp">Pinjaman</a>
+                    <a href="#">Angsuran</a>
                     <div class="clearfix"></div>
                 </nav>	
             </header>
-            <%
-                if (session.getAttribute("update") != null) {
-                    Employee employee = (Employee) session.getAttribute("update");
-                    nik = employee.getNik();
-                    name = employee.getName();
-                    hp = employee.getPhoneNumber();
-                }
-                if (session.getAttribute("message") != null) {
-                    out.println(session.getAttribute("message"));
-                }
-            %>
 
             <div id="latest">
                 <selection class="center-col">
-                    <table border="1">
-                        <thead>
+                    <table>
+<!--                        <thead>-->
                             <tr>
-                                <th style="text-align: center">No</th>
-                                <th style="text-align: center">NIK</th>
-                                <th style="text-align: center">Nama</th>
-                                <th style="text-align: center">Telepon</th>
-                                <th style="text-align: center">Email</th>
-                                <th style="text-align: center">Gaji</th>
-                                <th style="text-align: center">Status</th>
+                                <th>No</th>
+                                <th>NIK</th>
+                                <th>Nama</th>
+                                <th>Telepon</th>
+                                <th>Email</th>
+                                <th>Gaji</th>
+                                <th>Status</th>
                             </tr>
-                        </thead>
+<!--                        </thead>-->
                         <%
                             int nn = 1;
                             for (Employee e : fdao.function(new Employee(), 3, "", "")) {
                         %>      
-                        <tbody>
+<!--                        <tbody>-->
                             <tr>
                                 <td><%=nn++%></td>
                                 <% if (e.getNik() != null) {
@@ -117,10 +107,11 @@
                                 %>
                                 </td>
 
-                                <td><a href="../Update?id=<%= e.getNik()%>">Edit</a></td>
-                                <td><a href="../Delete?id=<%= e.getNik()%>">Hapus</a></td>
+                                <td><a style="color: #6666ff" href="../Update?id=<%= e.getNik()%>">Edit</a></td>
+                                <td><a style="color: #6666ff" href="BerandaDetail.jsp">Detail</a></td>
+<!--                                <td><a href="../Delete?id=">Hapus</a></td>-->
                             </tr>
-                        </tbody>
+<!--                        </tbody>-->
                         <%
                             }
                         %>
@@ -130,41 +121,34 @@
                         //                session.removeAttribute("message");
                     %>
                 </selection>
-                <form action="../Insert" method="post">
+<!--                <form action="../Insert" method="post">
                     <table>
                         <tr>
                             <td>NIK</td>
                             <td>:</td>
-                            <td><input type="text" name="nik" value="<%= nik%>"></td>
+                            <td><input type="text" name="nik"></td>
                         </tr>
                         <tr>
                             <td>Nama</td>
                             <td>:</td>
-                            <td><input type="text" name="nama" value="<%= name%>"></td>
+                            <td><input type="text" name="nama">"></td>
                         </tr>
                         <tr>
                             <td>Telepon</td>
                             <td>:</td>
-                            <td><input type="text" name="hp" value="<%= hp%>"></td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td>:</td>
-                            <td><input type="text" name="hp" value="<%= email%>"></td>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Gaji</td>
-                            <td>:</td>
-                            <td><input type="text" name="hp" value="<%= gaji%>"></td>
+                            <td><input type="text" name="hp">"></td>
                         </tr>
                         <tr>
                             <td><input type="submit" value="Simpan"></td>
                             <td><input type="reset" value="Reset"></td>
                         </tr>
                     </table>
-                </form>
+                </form>-->
             </div>
+                <hr/>
+                    <footer>
+                        <p>&copy; 2019 - Sistem Kredit Karyawan</p>
+                    </footer>
         </div>
     </body>
 </html>

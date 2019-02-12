@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author SAMSUNG
+ * @author gandol
  */
 @Entity
 @Table(name = "EMPLOYEE")
@@ -49,12 +49,10 @@ public class Employee implements Serializable {
     private String name;
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
-    @Basic(optional = false)
     @Column(name = "EMAIL")
     private String email;
     @Column(name = "USERNAME")
     private String username;
-    @Basic(optional = false)
     @Column(name = "PASSWORD")
     private String password;
     @Column(name = "SALARY")
@@ -65,7 +63,7 @@ public class Employee implements Serializable {
     private String isDelete;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nik", fetch = FetchType.LAZY)
     private List<Loan> loanList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "admin", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "admin", fetch = FetchType.LAZY)
     private List<Loan> loanList1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nik", fetch = FetchType.LAZY)
     private List<Roleemployee> roleemployeeList;
@@ -73,14 +71,22 @@ public class Employee implements Serializable {
     public Employee() {
     }
 
+    public Employee(String nik, String name, String phoneNumber, String email, String username, String password, Long salary, String status, String isDelete) {
+        this.nik = nik;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.salary = salary;
+        this.status = status;
+        this.isDelete = isDelete;
+    }
+    
+    
+    
     public Employee(String nik) {
         this.nik = nik;
-    }
-
-    public Employee(String nik, String email, String password) {
-        this.nik = nik;
-        this.email = email;
-        this.password = password;
     }
 
     public String getNik() {

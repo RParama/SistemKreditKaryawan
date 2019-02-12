@@ -47,7 +47,7 @@ public class Update extends HttpServlet {
             SessionFactory sessionFactory = NewHibernateUtil.getSessionFactory();
             ControllerInterface<Employee> ci = new GeneralController(sessionFactory);
             session.setAttribute("update", ci.findById(new Employee(), nik));
-            response.sendRedirect("views/Beranda.jsp");
+            response.sendRedirect("views/UpdateEmployee.jsp");
         }
     }
 

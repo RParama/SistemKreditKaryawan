@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import models.Employee;
+import models.Loan;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -31,33 +32,58 @@ public class FunctionDAO {
     public FunctionDAO() {
         this.sessionFactory = NewHibernateUtil.getSessionFactory();
     }
-
+    
     public List<Employee> function(Employee s, int t, String category, String search) {
         List<Employee> data = new ArrayList<Employee>();
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            switch (t) {
-                case 1:
-                    session.saveOrUpdate(s);
-                    break;
-                case 2:
-                    session.delete(s);
-                    break;
-                case 3:
-                    data = session.createQuery("from Employee order by NIK").list();
-                    break;
-                case 4:
-                    data = session.createCriteria(s.getClass())
-                            .add(Restrictions.eq("id", search)).addOrder(Order.asc("id")).list();
-                    break;
-                case 5:
-                    data = session.createCriteria(s.getClass())
-                            .add(Restrictions.ilike(category, search, MatchMode.ANYWHERE))
-                            .addOrder(Order.asc("id")).list();
-                    break;
-                default:
-                    break;
+            if (t == 1) {
+                session.saveOrUpdate(s);
+            } else if (t == 2) {
+                session.delete(s);
+            } else if (t == 3) {
+                data = session.createQuery("from Employee order by NIK").list();
+            } else if (t == 4) {
+                data = session.createCriteria(s.getClass())
+                        .add(Restrictions.eq("id", search)).addOrder(Order.asc("id")).list();
+
+            } else if (t == 5) {
+                data = session.createCriteria(s.getClass())
+                        .add(Restrictions.ilike(category, search, MatchMode.ANYWHERE))
+                        .addOrder(Order.asc("id")).list();
+            }
+
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return data;
+    }
+    public List<Loan> function(Loan s, int t, String category, String search) {
+        List<Loan> data = new ArrayList<Loan>();
+        try {
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            if (t == 1) {
+                session.saveOrUpdate(s);
+            } else if (t == 2) {
+                session.delete(s);
+            } else if (t == 3) {
+                data = session.createQuery("from Loan order by NIK").list();
+            } else if (t == 4) {
+                data = session.createCriteria(s.getClass())
+                        .add(Restrictions.eq("id", search)).addOrder(Order.asc("id")).list();
+
+            } else if (t == 5) {
+                data = session.createCriteria(s.getClass())
+                        .add(Restrictions.ilike(category, search, MatchMode.ANYWHERE))
+                        .addOrder(Order.asc("id")).list();
             }
 
             transaction.commit();

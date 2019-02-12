@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author SAMSUNG
+ * @author gandol
  */
 @Entity
 @Table(name = "LOAN")
@@ -52,14 +52,13 @@ public class Loan implements Serializable {
     @Basic(optional = false)
     @Column(name = "MONTHLY_PAYMENT")
     private long monthlyPayment;
-    @Basic(optional = false)
     @Column(name = "STATUS")
     private String status;
     @JoinColumn(name = "NIK", referencedColumnName = "NIK")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Employee nik;
     @JoinColumn(name = "ADMIN", referencedColumnName = "NIK")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Employee admin;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idLoan", fetch = FetchType.LAZY)
     private List<Statusloan> statusloanList;
@@ -71,12 +70,11 @@ public class Loan implements Serializable {
         this.id = id;
     }
 
-    public Loan(String id, long nominal, int loanDuration, long monthlyPayment, String status) {
+    public Loan(String id, long nominal, int loanDuration, long monthlyPayment) {
         this.id = id;
         this.nominal = nominal;
         this.loanDuration = loanDuration;
         this.monthlyPayment = monthlyPayment;
-        this.status = status;
     }
 
     public String getId() {
